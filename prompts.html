@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .json-container {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .json-content {
+            display: none;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background-color: #f9f9f9;
+            white-space: pre-wrap; /* To preserve formatting of JSON */
+            font-family: monospace;
+        }
+        .json-header {
+            cursor: pointer;
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    <style>
+        .image-container {
+            float: right; /* Float the image to the left */
+            margin-left: 15px; /* Add some space to the right of the image */
+            margin-bottom: 15px; /* Add some space below the image */
+        }
+    </style>
+     <title>Prompts</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <!-- <link rel="stylesheet" href="static/css/bulma-carousel.min.css"> -->
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+</head>
+<body>
+
+  <section class="hero is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">Prompt Variations for Each Dataset in <samp>SEAM</samp></h1>
+                <span class="link-block">
+                  <a href="https://seam-benchmark.github.io"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fa fa-home"></i>
+                  </span>
+                  <span>Back to Home Page</span>
+                </a>
+              </span>
+
+          </div>
+          </div>
+            </div>
+    </div>
+    </section>
+
+  <section class="hero is-small">
+
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="item">
+        <h3 class="subtitle is-size-4-tablet has-text-left pr-4 pl-4 pt-3 pb-3">
+            <div class="image-container">
+            <img src="static/images/prompt_template.png"  style="width: 80%"/>
+</div>
+          <p>
+<!--              A recent line of work has noticed that current LLMs are highly sensitive to seemingly arbitrary prompt design choices.-->
+<!--              These include semantically-equivalent paraphrases of the task instructions (e.g., replacing ``term'' with ``word''), minor prompt formatting variations (e.g., replacing spaces with new lines, or adding commas), the order of given in-context few-shot examples, the instances chosen for evaluation, or the order of the documents in multi-document tasks.-->
+<!--              These works show that variations along any of these axes lead to vast differences in both absolute and relative model performance, thus calling into question many of the observations made based on prevalent single-prompt benchmarks.-->
+<!--              <br><br>-->
+              Below we provide the prompt paraphrases used for each dataset in <samp>SEAM</samp>, as well as a pool of 5 few-shot examples.
+              <br><br>In each evaluation run, <samp>SEAM</samp> resamples a single instruction paraphrase, a subset of few-shot examples, and their arbitrary order.
+          </p>
+        </h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="json-container">
+    <div class="json-header" onclick="toggleVisibility('MultiNews')">MultiNews</div>
+    <div class="json-content" id="MultiNews"></div>
+</div>
+
+<div class="json-container">
+    <div class="json-header" onclick="toggleVisibility('OpenASP')">OpenASP</div>
+    <div class="json-content" id="OpenASP"></div>
+</div>
+
+<div class="json-container">
+    <div class="json-header" onclick="toggleVisibility('FuseReviews')">FuseReviews</div>
+    <div class="json-content" id="FuseReviews"></div>
+</div>
+
+<div class="json-container">
+    <div class="json-header" onclick="toggleVisibility('MusiQue')">MusiQue</div>
+    <div class="json-content" id="MusiQue"></div>
+</div>
+
+<div class="json-container">
+    <div class="json-header" onclick="toggleVisibility('SciCo')">SciCo</div>
+    <div class="json-content" id="SciCo"></div>
+</div>
+
+<div class="json-container">
+    <div class="json-header" onclick="toggleVisibility('ECB')">ECB</div>
+    <div class="json-content" id="ECB"></div>
+</div>
+
+
+
+<script>
+    function toggleVisibility(id) {
+        const content = document.getElementById(id);
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const jsonFiles = [
+            { id: 'MultiNews', file: 'MultiNews.json' },
+            { id: 'OpenASP', file: 'OpenASP.json' },
+            { id: 'FuseReviews', file: 'FuseReviews.json' },
+            { id: 'MusiQue', file: 'MusiQue.json' },
+            { id: 'SciCo', file: 'SciCo.json' },
+            { id: 'ECB', file: 'ECB.json' }
+        ];
+
+        jsonFiles.forEach(({ id, file }) => {
+            const file_path = "prompt_json/" + file;
+            fetch(file_path)
+                .then(response => response.json())
+                .then(data => {
+                    const jsonContent = document.getElementById(id);
+                    jsonContent.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('Error fetching JSON:', error);
+                    const jsonContent = document.getElementById(id);
+                    jsonContent.textContent = 'Error loading JSON file.';
+                });
+        });
+    });
+</script>
+
+</body>
+</html>

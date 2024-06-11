@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaderboard </title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <!-- <link rel="stylesheet" href="static/css/bulma-carousel.min.css"> -->
+  <link rel="stylesheet" href="static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
+  <script defer src="static/js/fontawesome.all.min.js"></script>
+  <script src="static/js/bulma-slider.min.js"></script>
+  <script src="static/js/index.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 0 auto;
+            table-layout: auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        th {
+            cursor: pointer;
+            background-color: #f2f2f2;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .json-container {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .json-content {
+            display: none;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background-color: #f9f9f9;
+            white-space: pre-wrap; /* To preserve formatting of JSON */
+            font-family: monospace;
+        }
+        .json-header {
+            cursor: pointer;
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+    <body>
+
+    <section class="hero is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title"><samp>SEAM</samp> Leaderboard</h1>
+              <span class="link-block">
+                  <a href="https://seam-benchmark.github.io"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fa fa-home"></i>
+                  </span>
+                  <span>Back to Home Page</span>
+                </a>
+              </span>
+          </div>
+          </div>
+            </div>
+    </div>
+    </section>
+
+      <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="item">
+        <h3 class="subtitle is-size-4-tablet has-text-left pr-4 pl-4 pt-3 pb-3">
+          <p>
+              Below we present the leaderboard for the different datasets included in <samp>SEAM</samp>, for the following configuration:
+          </p>
+
+        </h3>
+                        <div class="json-container">
+    <div class="json-header" onclick="toggleVisibility('config')">config.json</div>
+    <div class="json-content" id="config"></div>
+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <table id="sortableTable">
+    <thead>
+    <tr>
+        <th rowspan="3"></th>
+        <th colspan="6" align="center">Summarization</th>
+        <th colspan="2" align="center">Question Answering</th>
+        <th colspan="4" align="center">Coreference Resolution</th>
+    </tr>
+        <tr>
+             <th colspan="2" align="center">MultiNews</th>
+             <th colspan="2" align="center">OpenASP</th>
+             <th colspan="2" align="center">FuseReviews</th>
+            <th colspan="2" align="center">MusiQue</th>
+             <th colspan="2" align="center">SciCo</th>
+             <th colspan="2" align="center">ECB+</th>
+        </tr>
+        <tr>
+             <th onclick="sortTable(1)">Mean</th>
+             <th onclick="sortTable(2)">std</th>
+             <th onclick="sortTable(3)">Mean</th>
+             <th onclick="sortTable(4)">std</th>
+            <th onclick="sortTable(5)">Mean</th>
+             <th onclick="sortTable(6)">std</th>
+            <th onclick="sortTable(7)">Mean</th>
+             <th onclick="sortTable(8)">std</th>
+             <th onclick="sortTable(9)">Mean</th>
+             <th onclick="sortTable(10)">std</th>
+            <th onclick="sortTable(11)">Mean</th>
+             <th onclick="sortTable(12)">std</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Llama3-8B</td>
+            <td>19.5</td><td>0.9</td>
+            <td>5.6</td><td>0.5</td>
+            <td>75.9</td><td>1.3</td>
+            <td>49.4</td><td>1.9</td>
+            <td>24.1</td><td>0.8</td>
+            <td>21.9</td><td>1.9</td>
+        </tr>
+        <tr>
+            <td>Llama3-70B</td>
+            <td>20.9</td><td>0.5</td>
+            <td>9.0</td><td>2.0</td>
+            <td>76.8</td><td>1.6</td>
+            <td>57.3</td><td>1.3</td>
+            <td>24.3</td><td>1.7</td>
+            <td>22.3</td><td>3.4</td>
+        </tr>
+        <tr>
+            <td>Mistral-7B</td>
+            <td>20.1</td><td>0.6</td>
+            <td>11.8</td><td>0.6</td>
+            <td>77.5</td><td>1.7</td>
+            <td>11.5</td><td>4.8</td>
+            <td>31.1</td><td>1.3</td>
+            <td>20.1</td><td>0.9</td>
+        </tr>
+        <tr>
+            <td>Mixtral-8x7B</td>
+            <td>21.4</td><td>0.7</td>
+            <td>11.5</td><td>0.5</td>
+            <td>65.7</td><td>5.5</td>
+            <td>5.6</td><td>1.2</td>
+            <td>17.8</td><td>3.4</td>
+            <td>14.1</td><td>3.8</td>
+        </tr>
+        <tr>
+            <td>Mixtral-8x22B*</td>
+            <td>20.3</td><td>0.4</td>
+            <td>11.1</td><td>0.3</td>
+            <td>65.0</td><td>2.4</td>
+            <td>45.8</td><td>3.8</td>
+            <td>21.5</td><td>2.7</td>
+            <td>12.3</td><td>2.5</td>
+        </tr>
+        <tr>
+            <td>Gemma1.1-2B</td>
+            <td>8.7</td><td>1.0</td>
+            <td>2.9</td><td>0.4</td>
+            <td>59.6</td><td>4.6</td>
+            <td>17.2</td><td>2.8</td>
+            <td>3.4</td><td>0.8</td>
+            <td>4.3</td><td>1.8</td>
+        </tr>
+        <tr>
+            <td>Gemma1.1-7B</td>
+            <td>2.4</td><td>0.2</td>
+            <td>2.5</td><td>0.3</td>
+            <td>38.5</td><td>3.0</td>
+            <td>0.8</td><td>0.4</td>
+            <td>3.3</td><td>0.8</td>
+            <td colspan="2">NA</td>
+        </tr>
+    </tbody>
+</table>
+
+
+      <section class="hero is-small">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="item">
+          <p>
+              * Mixtral-8x22B is 4-bit quantized due to computational constraints.
+          </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <section class="hero is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h3 class="subtitle is-size-4-tablet has-text-left pr-4 pl-4 pt-3 pb-3">
+                <p>
+              To contribute to <samp>SEAM</samp> leaderboard, please contact us at <a href="mailto:seam.benchmark@gmail.com">seam.benchmark@gmail.com</a>.
+          </p>
+            </h3>
+          </div>
+          </div>
+            </div>
+    </div>
+    </section>
+
+    <script>
+function sortTable(n) {
+    const table = document.getElementById("sortableTable");
+    let rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    switching = true;
+    dir = "desc";
+
+    while (switching) {
+        switching = false;
+        rows = table.rows;
+        for (i = 3; i < (rows.length - 1); i++) {
+            shouldSwitch = false;
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+
+            if (dir === "asc") {
+                if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                    shouldSwitch = true;
+                    break;
+                }
+            } else if (dir === "desc") {
+                if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+        }
+        if (shouldSwitch) {
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            switchcount++;
+        } else {
+            if (switchcount === 0 && dir === "desc") {
+                dir = "asc";
+                switching = true;
+            }
+        }
+    }
+}
+</script>
+
+    <script>
+    function toggleVisibility(id) {
+        const content = document.getElementById(id);
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const jsonFiles = [
+            { id: 'config', file: 'config.json' }
+        ];
+
+        jsonFiles.forEach(({ id, file }) => {
+            const file_path = "prompt_json/" + file;
+            fetch(file_path)
+                .then(response => response.json())
+                .then(data => {
+                    const jsonContent = document.getElementById(id);
+                    jsonContent.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    console.error('Error fetching JSON:', error);
+                    const jsonContent = document.getElementById(id);
+                    jsonContent.textContent = 'Error loading JSON file.';
+                });
+        });
+    });
+</script>
+
+  </body>
+  </html>
